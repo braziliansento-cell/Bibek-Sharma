@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bivek Sharma | CET138 Portfolio</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap');
+
+    :root {
+      --green: #2ecc71;
+      --dark: #0f1117;
+      --card-bg: #1a1d27;
+      --muted: #8892a4;
+      --white: #f0f4ff;
+      --accent: #f5a623;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--dark); color: var(--white); font-family: 'Space Grotesk', sans-serif; scroll-behavior: smooth; }
+
+    nav {
+      position: sticky; top: 0;
+      background: rgba(15,17,23,0.96); backdrop-filter: blur(10px);
+      padding: 14px 30px; display: flex; justify-content: space-between;
+      align-items: center; z-index: 100; border-bottom: 1px solid #1e2235;
+    }
+    .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--green); text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--green); }
+    .hamburger { display: none; cursor: pointer; color: var(--white); font-size: 1.4rem; }
+    .mobile-menu { display: none; flex-direction: column; background: var(--card-bg); padding: 16px 24px; gap: 14px; }
+    .mobile-menu a { color: var(--muted); text-decoration: none; font-size: 0.95rem; }
+    .mobile-menu.open { display: flex; }
+
+    .hero { min-height: 92vh; display: flex; flex-direction: column; justify-content: center; padding: 60px 30px 80px; max-width: 750px; margin: 0 auto; }
+    .hero-tag { display: inline-block; background: rgba(46,204,113,0.1); color: var(--green); font-size: 0.78rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 6px 14px; border-radius: 4px; margin-bottom: 28px; border: 1px solid rgba(46,204,113,0.25); }
+    .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.4rem, 6vw, 4rem); line-height: 1.15; margin-bottom: 22px; }
+    .hero h1 span { color: var(--green); }
+    .hero p { font-size: 1.05rem; color: var(--muted); line-height: 1.75; max-width: 540px; margin-bottom: 36px; }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-main { background: var(--green); color: #0f1117; font-weight: 600; padding: 12px 26px; border-radius: 6px; text-decoration: none; font-size: 0.92rem; transition: opacity 0.2s; }
+    .btn-main:hover { opacity: 0.85; color: #0f1117; }
+    .btn-outline { border: 1px solid #2a2f42; color: var(--white); padding: 12px 26px; border-radius: 6px; text-decoration: none; font-size: 0.92rem; transition: border-color 0.2s; }
+    .btn-outline:hover { border-color: var(--green); color: var(--white); }
+
+    section { padding: 80px 24px; max-width: 860px; margin: 0 auto; }
+    .section-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+    .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.7rem, 4vw, 2.4rem); margin-bottom: 18px; line-height: 1.2; }
+    .section-intro { color: var(--muted); font-size: 1rem; line-height: 1.8; margin-bottom: 36px; max-width: 660px; }
+
+    .card-box { background: var(--card-bg); border: 1px solid #1e2235; border-radius: 10px; padding: 28px; margin-bottom: 20px; }
+    .card-box h4 { font-size: 1rem; font-weight: 600; margin-bottom: 10px; color: var(--white); }
+    .card-box p { font-size: 0.92rem; color: var(--muted); line-height: 1.7; }
+
+    .demo-area { background: var(--card-bg); border: 1px solid #1e2235; border-radius: 10px; padding: 30px; margin-top: 24px; }
+    .demo-area h5 { font-size: 0.85rem; color: var(--accent); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+    .demo-subtitle { font-size: 0.82rem; color: var(--muted); margin-bottom: 18px; line-height: 1.6; }
+
+    .code-block { background: #0d1117; border: 1px solid #1e2235; border-radius: 8px; padding: 22px; font-family: 'Courier New', monospace; font-size: 0.82rem; color: #a8c4e0; line-height: 1.7; overflow-x: auto; margin-top: 16px; }
+    .tag { color: #79b8ff; } .attr { color: #ffab70; } .val { color: #9ecbff; }
+    .comment { color: #6a737d; } .prop { color: #b392f0; } .num { color: #79b8ff; }
+    .kw { color: #f97583; } .fn { color: #b392f0; } .str { color: #9ecbff; }
+
+    .explain-label { font-size: 0.75rem; background: rgba(46,204,113,0.12); color: var(--green); border: 1px solid rgba(46,204,113,0.2); padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: 10px; }
+
+    .divider { border: none; border-top: 1px solid #1e2235; margin: 0; }
+    footer { background: var(--card-bg); text-align: center; padding: 40px 24px; border-top: 1px solid #1e2235; color: var(--muted); font-size: 0.85rem; }
+    footer span { color: var(--green); }
+
+    /* ── HTML SECTION ── */
+    .html-rendered { background: #fff; color: #222; border-radius: 8px; padding: 20px; font-family: Georgia, serif; }
+    .html-rendered h1 { font-size: 1.3rem; margin-bottom: 6px; }
+    .html-rendered h2 { font-size: 1.05rem; margin-bottom: 6px; color: #333; }
+    .html-rendered p  { font-size: 0.88rem; margin-bottom: 8px; line-height: 1.6; color: #444; }
+    .html-rendered nav { display: flex; gap: 14px; background: #1a1a2e; padding: 10px 14px; border-radius: 6px; margin-bottom: 12px; }
+    .html-rendered nav a { color: #79b8ff; font-size: 0.85rem; text-decoration: none; font-family: sans-serif; }
+    .html-rendered table { width: 100%; border-collapse: collapse; font-size: 0.85rem; font-family: sans-serif; }
+    .html-rendered th { background: #1a1a2e; color: #79b8ff; padding: 8px 12px; text-align: left; }
+    .html-rendered td { border-bottom: 1px solid #ddd; padding: 8px 12px; color: #222; }
+    .html-rendered form { background: #f5f5f5; padding: 16px; border-radius: 6px; }
+    .html-rendered label { font-size: 0.82rem; color: #555; display: block; margin-bottom: 3px; font-family: sans-serif; }
+    .html-rendered input[type=text], .html-rendered input[type=email], .html-rendered select, .html-rendered textarea { width: 100%; padding: 7px 10px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 10px; font-size: 0.85rem; font-family: sans-serif; }
+    .html-rendered button { background: #2ecc71; color: white; border: none; padding: 8px 18px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; }
+    .html-rendered ul { padding-left: 20px; font-size: 0.88rem; color: #333; }
+    .html-rendered img-placeholder { display: block; background: #dde; border-radius: 4px; height: 60px; display: flex; align-items: center; justify-content: center; color: #666; font-size: 0.78rem; font-family: sans-serif; margin-bottom: 8px; }
+    .tag-badge { display: inline-block; background: #1e2235; color: #79b8ff; font-family: 'Courier New', monospace; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; margin: 2px; border: 1px solid #2a2f42; }
+
+    /* ── CSS SECTION ── */
+    .css-live-box { border-radius: 10px; padding: 20px; margin-bottom: 12px; cursor: pointer; font-size: 0.88rem; color: white; font-weight: 500; display: flex; align-items: center; justify-content: space-between; }
+    .css-prop-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+    .css-prop-label { font-size: 0.8rem; color: var(--muted); min-width: 130px; }
+    .css-slider { flex: 1; min-width: 120px; accent-color: var(--green); }
+    .css-val-display { font-family: 'Courier New', monospace; font-size: 0.8rem; color: var(--green); min-width: 70px; }
+    .css-preview-box { border-radius: 8px; padding: 24px; text-align: center; transition: all 0.3s ease; color: white; font-size: 0.9rem; font-weight: 600; }
+    .flex-demo { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+    .flex-item { background: linear-gradient(135deg,#667eea,#764ba2); border-radius: 6px; padding: 12px 16px; font-size: 0.8rem; color: white; text-align: center; }
+
+    /* ── BOOTSTRAP SECTION ── */
+    .bs-demo-wrap { background: #0d1117; border-radius: 8px; padding: 20px; margin-top: 14px; }
+
+    /* ── JS SECTION ── */
+    .js-output { background: #0d1117; border: 1px solid #1e2235; border-radius: 6px; padding: 14px; font-family: 'Courier New', monospace; font-size: 0.82rem; color: #2ecc71; min-height: 44px; margin-top: 10px; }
+    .js-btn { background: transparent; border: 1px solid #2a2f42; color: var(--white); padding: 8px 18px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-family: 'Space Grotesk', sans-serif; transition: all 0.2s; margin: 4px; }
+    .js-btn:hover { background: #1e2235; border-color: var(--green); }
+    .js-btn.green { border-color: var(--green); color: var(--green); }
+    .js-btn.red   { border-color: #e74c3c; color: #e74c3c; }
+    .counter-num { font-family: 'DM Serif Display', serif; font-size: 3rem; color: var(--green); display: block; text-align: center; margin: 12px 0; }
+    .todo-input-row { display: flex; gap: 8px; margin-bottom: 12px; }
+    .todo-input { flex: 1; background: #0d1117; border: 1px solid #2a2f42; color: var(--white); padding: 9px 14px; border-radius: 6px; font-family: 'Space Grotesk', sans-serif; font-size: 0.88rem; outline: none; }
+    .todo-input:focus { border-color: var(--green); }
+    .todo-item { display: flex; justify-content: space-between; align-items: center; background: #0d1117; border: 1px solid #1e2235; border-radius: 6px; padding: 9px 14px; margin-bottom: 7px; font-size: 0.87rem; }
+    .todo-item.done span { text-decoration: line-through; color: var(--muted); }
+    .t-btn { background: none; border: none; cursor: pointer; font-size: 0.9rem; padding: 2px 7px; border-radius: 4px; }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Bivek Sharma</a>
+  <ul class="nav-links">
+    <li><a href="#fullstack">Full Stack</a></li>
+    <li><a href="#html">HTML</a></li>
+    <li><a href="#css">CSS</a></li>
+    <li><a href="#bootstrap">Bootstrap</a></li>
+    <li><a href="#javascript">JavaScript</a></li>
+  </ul>
+  <span class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></span>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#fullstack" onclick="toggleMenu()">Full Stack</a>
+  <a href="#html"      onclick="toggleMenu()">HTML</a>
+  <a href="#css"       onclick="toggleMenu()">CSS</a>
+  <a href="#bootstrap" onclick="toggleMenu()">Bootstrap</a>
+  <a href="#javascript" onclick="toggleMenu()">JavaScript</a>
+</div>
+
+<div class="hero">
+  <span class="hero-tag">CET138 Full Stack Development</span>
+  <h1>Hey I am <span>Bivek.</span><br>This is my portfolio.</h1>
+  <p>This is my ePortfolio for CET138. I tried to cover all the topics we went through in class and added working examples to show what I understand. Some bits took me a while to get but I think I got there in the end.</p>
+  <div class="hero-btns">
+    <a href="#fullstack" class="btn-main">See my work</a>
+    <a href="#javascript" class="btn-outline">Jump to JS</a>
+  </div>
+</div>
+
+<hr class="divider"/>
+
+<!-- ══════════════════════════════════════════════ SECTION 1: FULL STACK -->
+<section id="fullstack">
+  <p class="section-label">Section 01</p>
+  <h2 class="section-title">What is Full Stack Development</h2>
+  <p class="section-intro">When I first heard the term full stack I wasnt really sure what it meant. I thought it just meant knowing a lot about coding in general. But it actually means being able to work on both sides of a web application. The front end is what people see in their browser and the back end is the server and database stuff running behind the scenes.</p>
+
+  <div class="card-box">
+    <h4>🖥️ Front End</h4>
+    <p>Everything the user sees and clicks on. The layout the buttons the forms and how things look. We use HTML to structure the page CSS to style it and JavaScript to make it interactive. If a website looks good and works properly in the browser that is all front end work.</p>
+  </div>
+  <div class="card-box">
+    <h4>⚙️ Back End</h4>
+    <p>The part users dont see. Its the server side logic that handles things like logging in storing data and processing requests. Languages like Node.js Python and PHP are used here. When you sign into a website and it knows who you are that is the back end doing its job.</p>
+  </div>
+  <div class="card-box">
+    <h4>🗄️ Database</h4>
+    <p>All the data has to be stored somewhere. Databases like MySQL and MongoDB keep everything organised so the back end can read and update it. Without a database most websites wouldnt remember anything.</p>
+  </div>
+  <div class="card-box">
+    <h4>🛠️ Tools and Version Control</h4>
+    <p>Things like Git for version control so you can track changes and not lose your work. And deployment tools so you can put your site online for people to see. Git has been really useful even just working on my own because I can go back to older versions if something breaks.</p>
+  </div>
+
+  <div class="demo-area" style="margin-top:28px;">
+    <h5>How a Request Travels Through the Stack</h5>
+    <p class="demo-subtitle">Click the button to see how a user request moves through each layer of a full stack application</p>
+    <div style="display:flex; flex-direction:column; gap:10px;" id="stackDiagram">
+      <div class="css-live-box" style="background:#1e2235; border:2px solid #2a2f42;" id="layer-browser">🖥️ Browser (User clicks "Login")</div>
+      <div style="text-align:center; color:var(--muted); font-size:1.2rem;">↓</div>
+      <div class="css-live-box" style="background:#1e2235; border:2px solid #2a2f42;" id="layer-frontend">📄 Front End HTML form sends request via JavaScript</div>
+      <div style="text-align:center; color:var(--muted); font-size:1.2rem;">↓</div>
+      <div class="css-live-box" style="background:#1e2235; border:2px solid #2a2f42;" id="layer-backend">⚙️ Back End Node.js checks username and password</div>
+      <div style="text-align:center; color:var(--muted); font-size:1.2rem;">↓</div>
+      <div class="css-live-box" style="background:#1e2235; border:2px solid #2a2f42;" id="layer-db">🗄️ Database MySQL finds the user record</div>
+      <div style="text-align:center; color:var(--muted); font-size:1.2rem;">↑</div>
+      <div class="css-live-box" style="background:#1e2235; border:2px solid #2a2f42;" id="layer-response">✅ Response sent back user is logged in</div>
+    </div>
+    <button class="js-btn green" style="margin-top:16px;" onclick="animateStack()">Simulate Request</button>
+    <p id="stackMsg" style="font-size:0.82rem; color:var(--muted); margin-top:10px; min-height:20px;"></p>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- ══════════════════════════════════════════════ SECTION 2: HTML -->
+<section id="html">
+  <p class="section-label">Section 02</p>
+  <h2 class="section-title">HTML</h2>
+  <p class="section-intro">HTML stands for HyperText Markup Language and it is the skeleton of any webpage. It tells the browser what content to display and how it should be structured. Every element on a page whether its a heading a paragraph a button or an image is an HTML tag. HTML on its own has no colour or style that is CSSs job.</p>
+
+  <!-- Tags explained -->
+  <div class="card-box">
+    <h4>What are HTML tags?</h4>
+    <p style="margin-bottom:14px;">Tags are the building blocks of HTML. Most tags have an opening and closing version. The browser reads these tags and decides how to display the content inside them.</p>
+    <div>
+      <span class="tag-badge">&lt;h1&gt;</span> Big heading
+      <span class="tag-badge">&lt;p&gt;</span> Paragraph
+      <span class="tag-badge">&lt;a&gt;</span> Link
+      <span class="tag-badge">&lt;img&gt;</span> Image
+      <span class="tag-badge">&lt;ul&gt; &lt;li&gt;</span> List
+      <span class="tag-badge">&lt;table&gt;</span> Table
+      <span class="tag-badge">&lt;form&gt;</span> Form
+      <span class="tag-badge">&lt;div&gt;</span> Container
+      <span class="tag-badge">&lt;header&gt;</span> Semantic header
+      <span class="tag-badge">&lt;nav&gt;</span> Navigation
+      <span class="tag-badge">&lt;main&gt;</span> Main content
+      <span class="tag-badge">&lt;footer&gt;</span> Footer
+    </div>
+  </div>
+
+  <div class="card-box">
+    <h4>Semantic HTML</h4>
+    <p>Using the right tags for the right purpose is called semantic HTML. Instead of putting everything in a div you use tags that describe what the content actually is. This helps screen readers for people with disabilities and it helps Google understand your page better too. I started doing this properly in this module and it made my code look a lot cleaner.</p>
+  </div>
+
+  <!-- DEMO 1: Rendered HTML elements -->
+  <div class="demo-area">
+    <h5>Live HTML Elements Demo</h5>
+    <p class="demo-subtitle">This is actual HTML rendering the tags on the left produce the output on the right</p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px;">
+      <div class="code-block" style="margin-top:0;">
+<span class="tag">&lt;h1&gt;</span>Main Heading<span class="tag">&lt;/h1&gt;</span>
+<span class="tag">&lt;h2&gt;</span>Sub Heading<span class="tag">&lt;/h2&gt;</span>
+<span class="tag">&lt;p&gt;</span>A paragraph of text<span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href=</span><span class="val">"#"</span><span class="tag">&gt;</span>A link<span class="tag">&lt;/a&gt;</span>
+<span class="tag">&lt;ul&gt;</span>
+  <span class="tag">&lt;li&gt;</span>Item one<span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;li&gt;</span>Item two<span class="tag">&lt;/li&gt;</span>
+<span class="tag">&lt;/ul&gt;</span>
+<span class="tag">&lt;button&gt;</span>Click me<span class="tag">&lt;/button&gt;</span>
+      </div>
+      <div class="html-rendered" style="font-size:0.9rem;">
+        <h1>Main Heading</h1>
+        <h2>Sub Heading</h2>
+        <p>A paragraph of text</p>
+        <a href="#html" style="color:#2563eb;">A link</a>
+        <ul style="margin:8px 0;"><li>Item one</li><li>Item two</li></ul>
+        <button style="background:#2ecc71;color:white;border:none;padding:6px 14px;border-radius:4px;cursor:pointer;margin-top:6px;">Click me</button>
+      </div>
+    </div>
+
+    <!-- Table demo -->
+    <p style="font-size:0.82rem; color:var(--accent); font-weight:600; letter-spacing:1px; text-transform:uppercase; margin-bottom:8px;">HTML Table</p>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px;">
+      <div class="code-block" style="margin-top:0;">
+<span class="tag">&lt;table&gt;</span>
+  <span class="tag">&lt;tr&gt;</span>
+    <span class="tag">&lt;th&gt;</span>Name<span class="tag">&lt;/th&gt;</span>
+    <span class="tag">&lt;th&gt;</span>Mark<span class="tag">&lt;/th&gt;</span>
+  <span class="tag">&lt;/tr&gt;</span>
+  <span class="tag">&lt;tr&gt;</span>
+    <span class="tag">&lt;td&gt;</span>HTML<span class="tag">&lt;/td&gt;</span>
+    <span class="tag">&lt;td&gt;</span>18/20<span class="tag">&lt;/td&gt;</span>
+  <span class="tag">&lt;/tr&gt;</span>
+  <span class="tag">&lt;tr&gt;</span>
+    <span class="tag">&lt;td&gt;</span>CSS<span class="tag">&lt;/td&gt;</span>
+    <span class="tag">&lt;td&gt;</span>17/20<span class="tag">&lt;/td&gt;</span>
+  <span class="tag">&lt;/tr&gt;</span>
+<span class="tag">&lt;/table&gt;</span>
+      </div>
+      <div class="html-rendered">
+        <table>
+          <tr><th>Name</th><th>Mark</th></tr>
+          <tr><td>HTML</td><td>18/20</td></tr>
+          <tr><td>CSS</td><td>17/20</td></tr>
+          <tr><td>JavaScript</td><td>16/20</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Form demo -->
+    <p style="font-size:0.82rem; color:var(--accent); font-weight:600; letter-spacing:1px; text-transform:uppercase; margin-bottom:8px;">HTML Form with HTML5 input types</p>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+      <div class="code-block" style="margin-top:0;">
+<span class="tag">&lt;form&gt;</span>
+  <span class="tag">&lt;label&gt;</span>Name<span class="tag">&lt;/label&gt;</span>
+  <span class="tag">&lt;input</span> <span class="attr">type=</span><span class="val">"text"</span><span class="tag">/&gt;</span>
+
+  <span class="tag">&lt;label&gt;</span>Email<span class="tag">&lt;/label&gt;</span>
+  <span class="tag">&lt;input</span> <span class="attr">type=</span><span class="val">"email"</span><span class="tag">/&gt;</span>
+
+  <span class="tag">&lt;label&gt;</span>Date<span class="tag">&lt;/label&gt;</span>
+  <span class="tag">&lt;input</span> <span class="attr">type=</span><span class="val">"date"</span><span class="tag">/&gt;</span>
+
+  <span class="tag">&lt;button&gt;</span>Submit<span class="tag">&lt;/button&gt;</span>
+<span class="tag">&lt;/form&gt;</span>
+      </div>
+      <div class="html-rendered" id="formDemoBox">
+        <form onsubmit="return false;">
+          <label>Name</label>
+          <input type="text" id="demoName" placeholder="Your name"/>
+          <label>Email</label>
+          <input type="email" id="demoEmail" placeholder="you@example.com"/>
+          <label>Date</label>
+          <input type="date" id="demoDate"/>
+          <button type="button" onclick="submitDemoForm()">Submit</button>
+          <p id="formDemoMsg" style="font-size:0.8rem; color:#2ecc71; margin-top:8px; font-family:sans-serif;"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- ══════════════════════════════════════════════ SECTION 3: CSS -->
+<section id="css">
+  <p class="section-label">Section 03</p>
+  <h2 class="section-title">CSS</h2>
+  <p class="section-intro">CSS stands for Cascading Style Sheets and it controls how a webpage looks. HTML gives you the structure but without CSS everything is just plain black text on a white page. CSS lets you add colours fonts spacing animations and responsive layouts. I found Flexbox confusing at first but once it clicked it became one of my favourite things to work with.</p>
+
+  <div class="card-box">
+    <h4>How CSS works</h4>
+    <p>You select an HTML element and then write properties and values to change how it looks. You can select by tag name by class name or by ID. The cascade part means that if two rules target the same element the more specific one wins. This sounds confusing but once you understand specificity it makes a lot of sense.</p>
+  </div>
+
+  <!-- DEMO 1: Live CSS property editor -->
+  <div class="demo-area">
+    <h5>Live CSS Property Editor</h5>
+    <p class="demo-subtitle">Drag the sliders to change CSS properties in real time and see how each one affects the box below</p>
+
+    <div class="css-prop-row">
+      <span class="css-prop-label">border-radius</span>
+      <input class="css-slider" type="range" min="0" max="50" value="10" oninput="updateCSSBox()" id="sliderRadius"/>
+      <span class="css-val-display" id="valRadius">10px</span>
+    </div>
+    <div class="css-prop-row">
+      <span class="css-prop-label">padding</span>
+      <input class="css-slider" type="range" min="4" max="60" value="24" oninput="updateCSSBox()" id="sliderPad"/>
+      <span class="css-val-display" id="valPad">24px</span>
+    </div>
+    <div class="css-prop-row">
+      <span class="css-prop-label">font-size</span>
+      <input class="css-slider" type="range" min="10" max="32" value="16" oninput="updateCSSBox()" id="sliderFont"/>
+      <span class="css-val-display" id="valFont">16px</span>
+    </div>
+    <div class="css-prop-row">
+      <span class="css-prop-label">opacity</span>
+      <input class="css-slider" type="range" min="10" max="100" value="100" oninput="updateCSSBox()" id="sliderOpacity"/>
+      <span class="css-val-display" id="valOpacity">1</span>
+    </div>
+
+    <div id="cssPreviewBox" class="css-preview-box" style="background:linear-gradient(135deg,#667eea,#2ecc71); margin-top:16px;">
+      This box changes as you move the sliders above
+    </div>
+
+    <div class="code-block" id="cssLiveCode" style="margin-top:14px;">
+.box {
+  border-radius: 10px;
+  padding: 24px;
+  font-size: 16px;
+  opacity: 1;
+}
+    </div>
+  </div>
+
+  <!-- DEMO 2: Flexbox -->
+  <div class="demo-area" style="margin-top:20px;">
+    <h5>Flexbox Demo</h5>
+    <p class="demo-subtitle">Flexbox arranges items in a row or column. Change the settings to see how each property works</p>
+
+    <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:16px;">
+      <div>
+        <p style="font-size:0.8rem; color:var(--muted); margin-bottom:6px;">justify-content</p>
+        <select id="flexJustify" onchange="updateFlex()" style="background:#0d1117; color:var(--white); border:1px solid #2a2f42; padding:6px 10px; border-radius:6px; font-family:'Space Grotesk',sans-serif; font-size:0.83rem;">
+          <option>flex-start</option>
+          <option>center</option>
+          <option selected>space-between</option>
+          <option>space-around</option>
+          <option>flex-end</option>
+        </select>
+      </div>
+      <div>
+        <p style="font-size:0.8rem; color:var(--muted); margin-bottom:6px;">flex-direction</p>
+        <select id="flexDir" onchange="updateFlex()" style="background:#0d1117; color:var(--white); border:1px solid #2a2f42; padding:6px 10px; border-radius:6px; font-family:'Space Grotesk',sans-serif; font-size:0.83rem;">
+          <option selected>row</option>
+          <option>column</option>
+          <option>row-reverse</option>
+        </select>
+      </div>
+      <div>
+        <p style="font-size:0.8rem; color:var(--muted); margin-bottom:6px;">gap</p>
+        <select id="flexGap" onchange="updateFlex()" style="background:#0d1117; color:var(--white); border:1px solid #2a2f42; padding:6px 10px; border-radius:6px; font-family:'Space Grotesk',sans-serif; font-size:0.83rem;">
+          <option>4px</option>
+          <option selected>12px</option>
+          <option>24px</option>
+          <option>40px</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="flexContainer" style="display:flex; justify-content:space-between; flex-direction:row; gap:12px; background:#0d1117; padding:16px; border-radius:8px; border:1px solid #1e2235; min-height:70px; align-items:center;">
+      <div class="flex-item">Box A</div>
+      <div class="flex-item">Box B</div>
+      <div class="flex-item">Box C</div>
+    </div>
+
+    <div class="code-block" id="flexCode" style="margin-top:12px;">
+.container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 12px;
+}
+    </div>
+  </div>
+
+  <!-- DEMO 3: CSS variables -->
+  <div class="demo-area" style="margin-top:20px;">
+    <h5>CSS Custom Properties (Variables)</h5>
+    <p class="demo-subtitle">Change the colour variable once and it updates everywhere on this card automatically</p>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px;">
+      <button class="js-btn" type="button" onclick="document.getElementById('varCard').style.borderColor='#2ecc71'; document.getElementById('varCardTitle').style.color='#2ecc71'; document.getElementById('varCardBtn').style.background='#2ecc71';" style="border-color:#2ecc71; color:#2ecc71;">Green</button>
+      <button class="js-btn" type="button" onclick="document.getElementById('varCard').style.borderColor='#667eea'; document.getElementById('varCardTitle').style.color='#667eea'; document.getElementById('varCardBtn').style.background='#667eea';" style="border-color:#667eea; color:#667eea;">Purple</button>
+      <button class="js-btn" type="button" onclick="document.getElementById('varCard').style.borderColor='#f5a623'; document.getElementById('varCardTitle').style.color='#f5a623'; document.getElementById('varCardBtn').style.background='#f5a623';" style="border-color:#f5a623; color:#f5a623;">Orange</button>
+      <button class="js-btn" type="button" onclick="document.getElementById('varCard').style.borderColor='#e74c3c'; document.getElementById('varCardTitle').style.color='#e74c3c'; document.getElementById('varCardBtn').style.background='#e74c3c';" style="border-color:#e74c3c; color:#e74c3c;">Red</button>
+      <button class="js-btn" type="button" onclick="document.getElementById('varCard').style.borderColor='#1abc9c'; document.getElementById('varCardTitle').style.color='#1abc9c'; document.getElementById('varCardBtn').style.background='#1abc9c';" style="border-color:#1abc9c; color:#1abc9c;">Teal</button>
+    </div>
+
+    <div id="varCard" style="background:#0d1117; border:2px solid #2ecc71; border-radius:10px; padding:20px;">
+      <h4 id="varCardTitle" style="color:#2ecc71; margin-bottom:8px;">Themed Card</h4>
+      <p style="font-size:0.88rem; color:var(--muted); line-height:1.6; margin-bottom:12px;">This card border title and button all use the same CSS variable. Change the variable once and all three update together.</p>
+      <button id="varCardBtn" style="background:#2ecc71; color:#0f1117; border:none; padding:8px 18px; border-radius:6px; font-weight:600; cursor:pointer; font-family:'Space Grotesk',sans-serif;">Button</button>
+    </div>
+
+    <div class="code-block" style="margin-top:14px;">
+<span class="comment">/* One variable controls the whole theme */</span>
+<span class="prop">:root</span> { <span class="prop">--accent</span>: <span class="val">#2ecc71</span>; }
+
+<span class="prop">.card</span>   { <span class="prop">border-color</span>: var(<span class="val">--accent</span>); }
+<span class="prop">.title</span>  { <span class="prop">color</span>: var(<span class="val">--accent</span>); }
+<span class="prop">.btn</span>    { <span class="prop">background</span>: var(<span class="val">--accent</span>); }
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- ══════════════════════════════════════════════ SECTION 4: BOOTSTRAP -->
+<section id="bootstrap">
+  <p class="section-label">Section 04</p>
+  <h2 class="section-title">Bootstrap Framework</h2>
+  <p class="section-intro">Bootstrap is a CSS framework that gives you ready made components and a grid system you can use straight away. You just add the right class names to your HTML and things like responsive columns buttons cards and navbars just work without you having to write loads of CSS yourself. It is built on CSS and JavaScript but you dont need to write those yourself Bootstrap handles it.</p>
+
+  <div class="card-box">
+    <h4>The 12 Column Grid</h4>
+    <p>Bootstrap divides every row into 12 invisible columns. You choose how many columns each element takes up. col-6 means half the width. col-4 means one third. You can also add breakpoints like col-md-6 which means half width on medium screens and above but full width on mobile. This is how Bootstrap makes things responsive automatically.</p>
+  </div>
+
+  <!-- DEMO 1: Interactive grid builder -->
+  <div class="demo-area">
+    <h5>Interactive Grid Builder</h5>
+    <p class="demo-subtitle">Select a layout to see how Bootstrap grid classes produce different column arrangements</p>
+
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;">
+      <button class="js-btn green" onclick="setGrid([12])">col-12</button>
+      <button class="js-btn green" onclick="setGrid([6,6])">col-6 + col-6</button>
+      <button class="js-btn green" onclick="setGrid([4,4,4])">col-4 × 3</button>
+      <button class="js-btn green" onclick="setGrid([3,3,3,3])">col-3 × 4</button>
+      <button class="js-btn green" onclick="setGrid([8,4])">col-8 + col-4</button>
+      <button class="js-btn green" onclick="setGrid([3,9])">col-3 + col-9</button>
+    </div>
+
+    <div class="bs-demo-wrap">
+      <div class="container-fluid p-0">
+        <div class="row g-2" id="gridDemo"></div>
+      </div>
+    </div>
+
+    <div class="code-block" id="gridCode" style="margin-top:12px;">
+&lt;div class="row"&gt;
+  &lt;div class="col-12"&gt;Full width&lt;/div&gt;
+&lt;/div&gt;
+    </div>
+  </div>
+
+  <!-- DEMO 2: Bootstrap components -->
+  <div class="demo-area" style="margin-top:20px;">
+    <h5>Bootstrap Components</h5>
+    <p class="demo-subtitle">These are all real Bootstrap components just class names added to HTML, no custom CSS needed</p>
+
+    <div class="bs-demo-wrap">
+      <!-- Buttons -->
+      <p style="font-size:0.78rem; color:var(--muted); margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">Buttons btn btn-primary / btn-success / btn-danger etc</p>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px;">
+        <button class="btn btn-primary btn-sm">btn-primary</button>
+        <button class="btn btn-success btn-sm">btn-success</button>
+        <button class="btn btn-danger btn-sm">btn-danger</button>
+        <button class="btn btn-warning btn-sm">btn-warning</button>
+        <button class="btn btn-outline-light btn-sm">btn-outline-light</button>
+      </div>
+
+      <!-- Badges -->
+      <p style="font-size:0.78rem; color:var(--muted); margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">Badges badge bg-primary / bg-success etc</p>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px;">
+        <span class="badge bg-primary">New</span>
+        <span class="badge bg-success">Done</span>
+        <span class="badge bg-danger">Error</span>
+        <span class="badge bg-warning text-dark">Pending</span>
+      </div>
+
+      <!-- Progress -->
+      <p style="font-size:0.78rem; color:var(--muted); margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">Progress bar progress-bar with inline width</p>
+      <div class="progress mb-2" style="height:12px; background:#1e2235; border-radius:6px;">
+        <div class="progress-bar bg-success" style="width:75%; border-radius:6px;"></div>
+      </div>
+      <div class="progress mb-3" style="height:12px; background:#1e2235; border-radius:6px;">
+        <div class="progress-bar bg-warning" style="width:40%; border-radius:6px;"></div>
+      </div>
+
+      <!-- Alert -->
+      <p style="font-size:0.78rem; color:var(--muted); margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">Alerts alert alert-success / alert-danger etc</p>
+      <div class="alert alert-success py-2 mb-2" style="font-size:0.85rem;">✅ This is an alert-success just one class name</div>
+      <div class="alert alert-danger py-2 mb-2"  style="font-size:0.85rem;">❌ This is an alert-danger</div>
+
+      <!-- Card -->
+      <p style="font-size:0.78rem; color:var(--muted); margin:14px 0 8px; text-transform:uppercase; letter-spacing:1px;">Card component</p>
+      <div class="card bg-dark border-secondary" style="max-width:280px;">
+        <div class="card-body">
+          <h5 class="card-title text-white">Bootstrap Card</h5>
+          <p class="card-text text-secondary" style="font-size:0.85rem;">Card body text goes here. No custom CSS needed.</p>
+          <button class="btn btn-primary btn-sm">Learn More</button>
+          <button class="btn btn-outline-light btn-sm ms-2">View Code</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- ══════════════════════════════════════════════ SECTION 5: JAVASCRIPT -->
+<section id="javascript">
+  <p class="section-label">Section 05</p>
+  <h2 class="section-title">JavaScript</h2>
+  <p class="section-intro">JavaScript is what makes a webpage actually do things. HTML is the structure CSS is the style and JavaScript is the behaviour. Without it everything just sits there and nothing happens when you click or type. JS lets you respond to user actions change what is on screen validate forms do calculations and a lot more. I found JavaScript the hardest part of this module but also the most satisfying when something actually works.</p>
+
+  <!-- DEMO 1: Variables and data types -->
+  <div class="demo-area">
+    <h5>Variables and Data Types</h5>
+    <p class="demo-subtitle">JavaScript stores information in variables. Click the buttons to see different data types in action</p>
+
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
+      <button class="js-btn green" onclick="showVar('string')">String</button>
+      <button class="js-btn green" onclick="showVar('number')">Number</button>
+      <button class="js-btn green" onclick="showVar('boolean')">Boolean</button>
+      <button class="js-btn green" onclick="showVar('array')">Array</button>
+      <button class="js-btn green" onclick="showVar('object')">Object</button>
+    </div>
+    <div class="js-output" id="varOutput">Click a button to see a variable example</div>
+
+    <div class="code-block" style="margin-top:12px;">
+<span class="kw">const</span> name    = <span class="str">"Bivek"</span>;           <span class="comment">// String</span>
+<span class="kw">const</span> age     = <span class="num">20</span>;               <span class="comment">// Number</span>
+<span class="kw">const</span> passed  = <span class="kw">true</span>;            <span class="comment">// Boolean</span>
+<span class="kw">const</span> grades  = [<span class="num">18</span>, <span class="num">17</span>, <span class="num">16</span>];    <span class="comment">// Array</span>
+<span class="kw">const</span> student = { name: <span class="str">"Bivek"</span>, age: <span class="num">20</span> }; <span class="comment">// Object</span>
+    </div>
+  </div>
+
+  <!-- DEMO 2: Functions and conditions -->
+  <div class="demo-area" style="margin-top:20px;">
+    <h5>Functions and Conditions</h5>
+    <p class="demo-subtitle">A function is a reusable block of code. Enter a number and the function checks if it is odd or even</p>
+
+    <div style="display:flex; gap:10px; margin-bottom:12px; flex-wrap:wrap;">
+      <input id="numInput" type="number" placeholder="Enter a number" class="todo-input" style="max-width:200px;" oninput="checkNum()"/>
+    </div>
+    <div class="js-output" id="numOutput">Waiting for input...</div>
+
+    <div class="code-block" style="margin-top:12px;">
+<span class="kw">function</span> <span class="fn">checkNumber</span>(num) {
+  <span class="kw">if</span> (num % <span class="num">2</span> === <span class="num">0</span>) {
+    <span class="kw">return</span> num + <span class="str">" is even"</span>;
+  } <span class="kw">else</span> {
+    <span class="kw">return</span> num + <span class="str">" is odd"</span>;
+  }
+}
+    </div>
+  </div>
+
+  <!-- DEMO 3: DOM manipulation counter -->
+  <div class="demo-area" style="margin-top:20px;">
+    <h5>DOM Manipulation Counter</h5>
+    <p class="demo-subtitle">The DOM is the map of all HTML elements. JavaScript uses getElementById to find the counter number and changes its text content when you click</p>
+
+    <span class="counter-num" id="counterNum">0</span>
+    <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
+      <button class="js-btn red"   onclick="changeCount(-1)">Decrease</button>
+      <button class="js-btn"       onclick="changeCount(0)">↺ Reset</button>
+      <button class="js-btn green" onclick="changeCount(1)">+ Increase</button>
+    </div>
+
+    <div class="code-block" style="margin-top:16px;">
+<span class="kw">let</span> count = <span class="num">0</span>;
+
+<span class="kw">function</span> <span class="fn">changeCount</span>(action) {
+  <span class="kw">if</span> (action === <span class="num">0</span>) count = <span class="num">0</span>;   <span class="comment">// reset</span>
+  <span class="kw">else</span> count += action;            <span class="comment">// +1 or -1</span>
+
+  <span class="comment">// Find the element and update its text</span>
+  document.<span class="fn">getElementById</span>(<span class="str">'counterNum'</span>).textContent = count;
+}
+    </div>
+  </div>
+
+  <!-- DEMO 4: Loops -->
+  <div class="demo-area" style="margin-top:20px;">
+    <h5>Loops</h5>
+    <p class="demo-subtitle">Loops let you repeat code. Choose a loop type and see the output generated</p>
+
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
+      <button class="js-btn green" onclick="runLoop('for')">for loop</button>
+      <button class="js-btn green" onclick="runLoop('while')">while loop</button>
+      <button class="js-btn green" onclick="runLoop('foreach')">forEach on array</button>
+    </div>
+    <div class="js-output" id="loopOutput">Click a loop type to see the output</div>
+
+    <div class="code-block" id="loopCode" style="margin-top:12px;">
+<span class="comment">// Select a loop type above</span>
+    </div>
+  </div>
+
+  <!-- DEMO 5: Todo list -->
+  <div class="demo-area" style="margin-top:20px;">
+    <h5>DOM Manipulation To Do List</h5>
+    <p class="demo-subtitle">This shows how JavaScript creates and removes HTML elements dynamically. Every time you add a task JS builds a new li element and inserts it into the page</p>
+
+    <div class="todo-input-row">
+      <input class="todo-input" id="todoInput" placeholder="Type a task and press Add or Enter" onkeydown="if(event.key==='Enter') addTodo()"/>
+      <button class="js-btn green" onclick="addTodo()">Add</button>
+    </div>
+    <ul id="todoList" style="list-style:none; padding:0;"></ul>
+
+    <div class="code-block" style="margin-top:14px;">
+<span class="kw">function</span> <span class="fn">addTodo</span>() {
+  <span class="kw">const</span> text = document.<span class="fn">getElementById</span>(<span class="str">'todoInput'</span>).value;
+  <span class="kw">if</span> (!text) <span class="kw">return</span>;
+
+  <span class="comment">// Create a new li element</span>
+  <span class="kw">const</span> li = document.<span class="fn">createElement</span>(<span class="str">'li'</span>);
+  li.textContent = text;
+
+  <span class="comment">// Add it to the list in the page</span>
+  document.<span class="fn">getElementById</span>(<span class="str">'todoList'</span>).<span class="fn">appendChild</span>(li);
+}
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<footer>
+  <p style="margin-bottom:6px; color:var(--white); font-size:0.95rem;">Bivek Sharma  <span>CET138 Full Stack Development</span></p>
+  <p>Assignment 1 ePortfolio  2026</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+// ── FORM DEMO SUBMIT ──────────────────────────────────────────────────
+function submitDemoForm() {
+  const name = document.getElementById('demoName').value;
+  const email = document.getElementById('demoEmail').value;
+  const msg = document.getElementById('formDemoMsg');
+  if (!name || !email) {
+    msg.style.color = '#e74c3c';
+    msg.textContent = 'Please fill in name and email';
+  } else {
+    msg.style.color = '#2ecc71';
+    msg.textContent = `Thanks ${name}, form submitted (this is just a demo, nothing is sent anywhere)`;
+  }
+}
+
+// ── NAV ──────────────────────────────────────────────────────────────
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// ── FULL STACK ANIMATION ─────────────────────────────────────────────
+const layers = ['layer-browser','layer-frontend','layer-backend','layer-db','layer-response'];
+const msgs   = ['User clicks Login in the browser...','Front end JavaScript sends the form data to the server...','Back end Node.js receives it and checks the credentials...','Database MySQL looks up the user record...','Response sent back user is now logged in!'];
+function animateStack() {
+  layers.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.style.borderColor = '#2a2f42'; el.style.background = '#1e2235'; }
+  });
+  layers.forEach((id, i) => {
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) { el.style.borderColor = '#2ecc71'; el.style.background = 'rgba(46,204,113,0.08)'; }
+      document.getElementById('stackMsg').textContent = msgs[i];
+    }, i * 700);
+  });
+}
+
+// ── CSS LIVE EDITOR ───────────────────────────────────────────────────
+function updateCSSBox() {
+  const r = document.getElementById('sliderRadius').value;
+  const p = document.getElementById('sliderPad').value;
+  const f = document.getElementById('sliderFont').value;
+  const o = document.getElementById('sliderOpacity').value;
+  document.getElementById('valRadius').textContent  = r + 'px';
+  document.getElementById('valPad').textContent     = p + 'px';
+  document.getElementById('valFont').textContent    = f + 'px';
+  document.getElementById('valOpacity').textContent = (o/100).toFixed(2);
+  const box = document.getElementById('cssPreviewBox');
+  box.style.borderRadius = r + 'px';
+  box.style.padding      = p + 'px';
+  box.style.fontSize     = f + 'px';
+  box.style.opacity      = o / 100;
+  document.getElementById('cssLiveCode').textContent =
+`.box {\n  border-radius: ${r}px;\n  padding: ${p}px;\n  font-size: ${f}px;\n  opacity: ${(o/100).toFixed(2)};\n}`;
+}
+
+// ── FLEXBOX DEMO ──────────────────────────────────────────────────────
+function updateFlex() {
+  const j = document.getElementById('flexJustify').value;
+  const d = document.getElementById('flexDir').value;
+  const g = document.getElementById('flexGap').value;
+  const c = document.getElementById('flexContainer');
+  c.style.justifyContent = j;
+  c.style.flexDirection  = d;
+  c.style.gap            = g;
+  c.style.alignItems     = d === 'column' ? 'flex-start' : 'center';
+  document.getElementById('flexCode').textContent =
+`.container {\n  display: flex;\n  justify-content: ${j};\n  flex-direction: ${d};\n  gap: ${g};\n}`;
+}
+
+// ── CSS VARIABLES ─────────────────────────────────────────────────────
+function setCSSVar(color) {
+  document.getElementById('varCard').style.borderColor = color;
+  document.getElementById('varCardTitle').style.color  = color;
+  document.getElementById('varCardBtn').style.background = color;
+  document.getElementById('varCardBtn').style.color = '#0f1117';
+}
+
+// ── BOOTSTRAP GRID ────────────────────────────────────────────────────
+function setGrid(cols) {
+  const demo = document.getElementById('gridDemo');
+  demo.innerHTML = '';
+  const colors = ['#667eea','#2ecc71','#f5a623','#e74c3c'];
+  const labels = cols.map(c => `col-${c}`);
+  cols.forEach((c, i) => {
+    const div = document.createElement('div');
+    div.className = `col-${c}`;
+    div.style.cssText = `background:${colors[i%4]}22; border:1px solid ${colors[i%4]}; border-radius:6px; padding:14px; text-align:center; font-size:0.8rem; color:${colors[i%4]};`;
+    div.textContent = `col-${c}`;
+    demo.appendChild(div);
+  });
+  const codeLines = cols.map(c => `  <div class="col-${c}">...</div>`).join('\n');
+  document.getElementById('gridCode').textContent = `<div class="row">\n${codeLines}\n</div>`;
+}
+setGrid([12]);
+
+// ── JS VARIABLES DEMO ─────────────────────────────────────────────────
+const varExamples = {
+  string:  { code: 'const name = "Bivek";',           out: '➜ "Bivek"  (type: string)' },
+  number:  { code: 'const age = 20;',                 out: '➜ 20  (type: number)' },
+  boolean: { code: 'const passed = true;',            out: '➜ true  (type: boolean)' },
+  array:   { code: 'const grades = [18, 17, 16];',   out: '➜ [18, 17, 16]  (type: object/array)  grades[0] = 18' },
+  object:  { code: 'const student = { name: "Bivek", age: 20 };', out: '➜ { name: "Bivek", age: 20 }  student.name = "Bivek"' },
+};
+function showVar(type) {
+  const e = varExamples[type];
+  document.getElementById('varOutput').textContent = e.code + '\n' + e.out;
+}
+
+// ── ODD / EVEN ────────────────────────────────────────────────────────
+function checkNum() {
+  const val = document.getElementById('numInput').value;
+  const out = document.getElementById('numOutput');
+  if (val === '') { out.textContent = 'Waiting for input...'; return; }
+  const n = parseInt(val);
+  if (isNaN(n)) { out.textContent = 'Please enter a valid number'; return; }
+  out.textContent = n % 2 === 0 ? `➜ ${n} is even` : `➜ ${n} is odd`;
+}
+
+// ── COUNTER ───────────────────────────────────────────────────────────
+let count = 0;
+function changeCount(action) {
+  if (action === 0) count = 0;
+  else count += action;
+  document.getElementById('counterNum').textContent = count;
+}
+
+// ── LOOPS ─────────────────────────────────────────────────────────────
+function runLoop(type) {
+  let out = '';
+  let codeEl = document.getElementById('loopCode');
+  if (type === 'for') {
+    for (let i = 1; i <= 5; i++) out += `➜ i = ${i}\n`;
+    codeEl.innerHTML = `<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">1</span>; i <= <span class="num">5</span>; i++) {\n  console.log(i);\n}`;
+  } else if (type === 'while') {
+    let i = 1;
+    while (i <= 5) { out += `➜ i = ${i}\n`; i++; }
+    codeEl.innerHTML = `<span class="kw">let</span> i = <span class="num">1</span>;\n<span class="kw">while</span> (i <= <span class="num">5</span>) {\n  console.log(i);\n  i++;\n}`;
+  } else {
+    const fruits = ['apple','banana','mango','grape','kiwi'];
+    fruits.forEach(f => out += `➜ ${f}\n`);
+    codeEl.innerHTML = `<span class="kw">const</span> fruits = [<span class="str">'apple'</span>,<span class="str">'banana'</span>,<span class="str">'mango'</span>];\nfruits.<span class="fn">forEach</span>(f => console.log(f));`;
+  }
+  document.getElementById('loopOutput').textContent = out.trim();
+}
+
+// ── TODO LIST ─────────────────────────────────────────────────────────
+function addTodo() {
+  const input = document.getElementById('todoInput');
+  const text = input.value.trim();
+  if (!text) return;
+  const li = document.createElement('li');
+  li.className = 'todo-item';
+  li.innerHTML = `
+    <span>${text}</span>
+    <div style="display:flex;gap:6px;">
+      <button class="t-btn" style="color:#2ecc71;" onclick="this.closest('li').classList.toggle('done')">✓</button>
+      <button class="t-btn" style="color:#e74c3c;" onclick="this.closest('li').remove()">✕</button>
+    </div>`;
+  document.getElementById('todoList').appendChild(li);
+  input.value = '';
+  input.focus();
+}
+</script>
+</body>
+</html>
